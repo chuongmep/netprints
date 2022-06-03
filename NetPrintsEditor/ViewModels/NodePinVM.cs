@@ -596,12 +596,12 @@ namespace NetPrintsEditor.ViewModels
             }
         }
 
-        private void OnPinChanged()
-        {
-            pin.PropertyChanged += OnPinPropertyChanged;
-
-            // TODO: Remove old event
-        }
+        // private void OnPinChanged()
+        // {
+        //     pin.PropertyChanged += OnPinPropertyChanged;
+        //
+        //     // TODO: Remove old event
+        // }
 
         private void OnPinPropertyChanged(object sender, PropertyChangedEventArgs e)
         {

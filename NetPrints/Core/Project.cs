@@ -12,6 +12,8 @@ using System.Threading.Tasks;
 using System.Collections.Concurrent;
 using NetPrints.Translator;
 using System.Diagnostics;
+using System.Runtime.CompilerServices;
+using NetPrints.Annotations;
 using NetPrints.Serialization;
 using NetPrints.Compilation;
 using PropertyChanged;
@@ -39,7 +41,7 @@ namespace NetPrints.Core
     /// </summary>
     [DataContract]
     [AddINotifyPropertyChangedInterface]
-    public class Project
+    public class Project : INotifyPropertyChanged
     {
         private static readonly IEnumerable<FrameworkAssemblyReference> DefaultReferences = new FrameworkAssemblyReference[]
         {
@@ -625,6 +627,14 @@ namespace NetPrints.Core
         private void FixDefaults(StreamingContext context)
         {
             Classes = new ObservableRangeCollection<ClassGraph>();
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        [NotifyPropertyChangedInvocator]
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }
